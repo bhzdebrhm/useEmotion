@@ -1,14 +1,11 @@
 {
-  "name": "use-emotion",
+  "name": "@bhzd/use-emotion",
   "version": "1.0.0",
   "description": "wrapper react  hook for emotion js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && babel src/lib --out-dir dist --copy-files"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "presets": [  
     "@babel/preset-react"
