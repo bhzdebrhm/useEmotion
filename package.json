@@ -1,6 +1,6 @@
 {
   "name": "@bhzd/use-emotion-style",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "wrapper react  hook for emotion js",
   "main": "index.js",
   "scripts": {
