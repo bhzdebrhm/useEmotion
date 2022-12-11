@@ -1,6 +1,6 @@
 {
   "name": "@bhzd/use-emotion",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "wrapper react  hook for emotion js",
   "main": "index.js",
   "scripts": {
@@ -9,11 +9,13 @@
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "presets": [
+    "@babel/preset-react",
     "@babel/preset-react"
   ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.19.3"
+    "@babel/cli": "^7.19.3",
+    "@babel/preset-react": "^7.18.6"
   }
 }
