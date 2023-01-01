@@ -1,5 +1,5 @@
 {
-  "version": "0.4.7",
+  "version": "0.4.8",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,7 +33,10 @@
     "trailingComma": "es5"
   },
   "name": "@bhzdebrhm/use-emotion",
-  "repository": "git://github.com/bhzdebrhm/useEmotion.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bhzdebrhm/useEmotion.git"
+  },
   "author": "bhzdebrhm",
   "module": "dist/use-emotion.esm.js",
   "size-limit": [
@@ -69,5 +72,13 @@
     "deepmerge": "^4.2.2",
     "immer": "^9.0.16",
     "lodash": "^4.17.21"
+  },
+  "description": "Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.",
+  "bugs": {
+    "url": "https://github.com/bhzdebrhm/useEmotion/issues"
+  },
+  "homepage": "https://github.com/bhzdebrhm/useEmotion#readme",
+  "directories": {
+    "test": "test"
   }
 }
