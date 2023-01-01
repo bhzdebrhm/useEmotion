@@ -1,5 +1,5 @@
 {
-  "version": "0.4.9",
+  "version": "0.5.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -32,7 +32,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@behzadebrhm/use-emotion",
+  "name": "@bhzdebrhm/use-emotion",
   "repository": {
     "type": "git",
     "url": "git://github.com/bhzdebrhm/useEmotion.git"
@@ -63,8 +63,8 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@behzadebrhm/react-hooks": "^0.4.4",
-    "@behzadebrhm/utils": "^1.0.1",
+    "@bhzdebrhm/react-hooks": "0.4.8",
+    "@bhzdebrhm/utils": "0.2.3",
     "@ctrl/tinycolor": "^3.5.0",
     "@emotion/react": "^11.10.5",
     "@rollup/plugin-node-resolve": "^15.0.1",
