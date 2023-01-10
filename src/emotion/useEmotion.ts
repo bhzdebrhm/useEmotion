@@ -17,9 +17,11 @@ export function useEmotion<S extends Record<string, unknown> | React.CSSProperti
 
 
     React.useInsertionEffect(() => {
-        css[1]();
-    }, [css])
+        css.attach();
+    }, [css.attach])
 
 
-    return [css[0], setLocalStyles]
-}
+    return [css.className, setLocalStyles]
+};
+
+export const cx = instance.cx

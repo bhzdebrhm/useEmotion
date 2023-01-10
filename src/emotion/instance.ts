@@ -11,9 +11,11 @@ function insertWithoutScoping(cache, serialized: SerializedStyles) {
 }
 
 //@ts-ignore
-function merge(registered: Object, css: any, className: string) {
-    //@ts-ignore
-    const registeredStyles = []
+function merge(registered: Object, css: (...args: any[]) => {
+    className: string;
+    attach: () => void;
+}, className: string) {
+    const registeredStyles: any = []
     const rawClassName = getRegisteredStyles(
         //@ts-ignore
         registered,
@@ -25,10 +27,10 @@ function merge(registered: Object, css: any, className: string) {
     if (registeredStyles.length < 2) {
         return className
     }
-    //@ts-ignore
+
     const cCss = css(registeredStyles);
-    cCss[1]();
-    return rawClassName + cCss[0]
+    cCss.attach();
+    return rawClassName + cCss.className
 }
 
 export type Interpolation = any
@@ -54,7 +56,10 @@ interface StyleSheet {
 }
 
 export type Emotion = {
-    css: any,
+    css: (...args: any[]) => {
+        className: string,
+        attach: () => void
+    },
     cx: (...classNames: Array<ClassNameArg>) => string,
     flush: () => void,
     hydrate: (ids: Array<string>) => void,
@@ -66,7 +71,7 @@ export type Emotion = {
     getRegisteredStyles: any
 }
 
-let createEmotion = (options: any): Emotion => {
+const createEmotion = (options: any): Emotion => {
     let cache = createCache(options)
 
     //@ts-ignore
@@ -86,7 +91,10 @@ let createEmotion = (options: any): Emotion => {
         const attach = () => {
             insertStyles(cache, serialized, false);
         }
-        return [`${cache.key}-${serialized.name}`, attach]
+        return {
+            className:`${cache.key}-${serialized.name}`,
+            attach
+        }
     }
     //@ts-ignore
     let keyframes = (...args) => {

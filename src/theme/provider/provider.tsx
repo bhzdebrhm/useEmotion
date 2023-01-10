@@ -33,18 +33,20 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
 
     const filteredByColor = React.useMemo(
         () => filterRawThemeColorMode(theme, colorMode),
-        [theme, colorMode]);
+        [theme, colorMode]
+    );
 
-    const computedTheme = React.useMemo(
-        () => computeTheme(filteredByColor),
-        [filteredByColor]);
+    const computedTheme = React.useMemo(() =>
+     computeTheme(filteredByColor),
+      [filteredByColor])
+
         return (
             <ThemeProviderContext.Provider value={computedTheme}>
-            <CSSVars root={cssVariables} />
-            {globalStyles && <GlobalStyle />}
-            {globalStyles && <Fonts />}
-            {children}
-        </ThemeProviderContext.Provider>
+                <CSSVars root={cssVariables} />
+                    {globalStyles && <GlobalStyle />}
+                    {globalStyles && <Fonts />}
+                    {children}
+            </ThemeProviderContext.Provider>
     )
 
 }
