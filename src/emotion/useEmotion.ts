@@ -15,7 +15,7 @@ addonVCSSOM(nano);
 
 let counter = 0;
 
-function useEmotion<S extends Record<string, unknown> | React.CSSProperties>(styles: S, deps: DependencyList | undefined = []): [string, Updater<S>]  {
+export  function useEmotion<S extends Record<string, unknown> | React.CSSProperties>(styles: S, deps: DependencyList | undefined = []): [string, Updater<S>]  {
     const [localStyle, setLocalStyles] = useImmer(styles, deps);
     const className = useMemo(() => (counter++).toString(36), []);
     const sheet = useMemo(() => new nano.VSheet(), []);
@@ -34,5 +34,3 @@ function useEmotion<S extends Record<string, unknown> | React.CSSProperties>(sty
 
   return [className, setLocalStyles];
 };
-
-export default useEmotion;
