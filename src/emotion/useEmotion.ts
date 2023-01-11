@@ -17,7 +17,8 @@ let counter = 0;
 
 export  function useEmotion<S extends Record<string, unknown> | React.CSSProperties>(styles: S, deps: DependencyList | undefined = []): [string, Updater<S>]  {
     const [localStyle, setLocalStyles] = useImmer(styles, deps);
-    const className = useMemo(() => (counter++).toString(36), []);
+    const hash = 'erTg432'
+    const className = useMemo(() => hash + (counter++).toString(36), []);
     const sheet = useMemo(() => new nano.VSheet(), []);
     const theme = useTheme();
 
