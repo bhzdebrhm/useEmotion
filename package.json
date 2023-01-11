@@ -1,5 +1,5 @@
 {
-  "version": "0.5.4",
+  "version": "0.5.5",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -71,7 +71,8 @@
     "@rollup/plugin-typescript": "^10.0.1",
     "deepmerge": "^4.2.2",
     "immer": "^9.0.16",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "nano-css": "^5.3.5"
   },
   "description": "Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.",
   "bugs": {
