@@ -2,7 +2,7 @@ import { localStorageManager } from '../colorMode';
 import { syncBodyClassName } from '../colorMode/colorModeUtils';
 import { injectGlobal } from '../emotion/usePreloadedEmotion';
 import { computeTheme, filterRawThemeColorMode } from '../utils';
-import { theme } from './default';
+import { theme as defaultheme } from './default';
 
 //* initialization
 
@@ -30,9 +30,9 @@ export const initTheme = (theme: any, options?: ThemeConfigsOptions) => {
 
 
 export function reInitTheme(nextOptions: ThemeConfigsOptions) {
-    initTheme(theme, nextOptions);
+    initTheme(defaultheme, nextOptions);
 }
 
-export default initTheme(theme);
+export const themeEnvironment = initTheme(defaultheme);
 
 
