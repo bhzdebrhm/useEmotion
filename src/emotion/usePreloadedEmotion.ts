@@ -51,14 +51,19 @@ export function usePreLoadedStyle<
      
     React.useInsertionEffect(() => {
         //* if ref is present use ref
-        if (state?.ref.attach) {
+        if (state?.ref?.attach) {
             state.ref.attach();
+            return
             //* else create ref before render
-        } else {
-            const loaded = loadStyle(theme, style, variables);
-            loaded.ref.attach();
-            setState(loaded)
+        } 
+        if (styleRefProp) {
+            styleRefProp.ref.attach();
+            return
         }
+        const loaded = loadStyle(theme, style, variables);
+        loaded.ref.attach();
+        setState(loaded);
+            return
     }, [state])
 
     useCustomCompareEffect(() => {
@@ -85,7 +90,7 @@ export function usePreLoadedStyle<
         }
     }, [styleRefProp, setState])
 
-    return [state?.ref.className , reloadStyles]
+    return [state?.ref?.className || styleRefProp?.ref?.className , reloadStyles]
 };
 
 export const injectGlobal = instance.injectGlobal
