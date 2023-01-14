@@ -9,24 +9,24 @@ import { isEqual } from 'lodash';
 import { useTheme } from '../theme';
 
 
-export type StyleRef = {
+export type StyleRef<V, T> = {
     ref: {
         className: string,
         attach: () => void,
     },
-    loadStyle: <A, T>(internalVariables?: A, internalTheme?: T) => StyleRef["ref"]
+    loadStyle:(internalVariables?: V, internalTheme?: T) => StyleRef<V, T>["ref"]
 }
 
 export function loadStyle<
+    T extends WithCSSVar<Dict>,
+    V extends Record<string, unknown>,
     S extends Record<string, unknown> | React.CSSProperties,
-    A extends Record<string, unknown>,
-    T extends WithCSSVar<Dict>
->(theme: T, styleOrStyleFn: S | ((props?: A) => S), variables?: A): StyleRef {
+>(theme: T, styleOrStyleFn: S | ((props?: V) => S), variables?: V): StyleRef<V, T> {
 
     const loadInternal = (
-        internalVariables: A | undefined = variables, 
+        internalVariables: V | undefined = variables, 
           internalTheme: T = theme
-            ): StyleRef["ref"] => {
+            ): StyleRef<V, T>["ref"] => {
         const nextStyles: S = runIfFn(styleOrStyleFn, internalVariables);
         const computedCss = computeCss(nextStyles)(internalTheme);
         const css = instance.css`${computedCss}`;
@@ -35,17 +35,16 @@ export function loadStyle<
 
     return {
         ref: loadInternal(),
-        //@ts-ignore
-        loadStyle: (internalVariables?: A, internalTheme?: T) => loadInternal(internalVariables, internalTheme)
+        loadStyle: (internalVariables?: V, internalTheme?: T) => loadInternal(internalVariables, internalTheme)
     }
 }
 
 
 export function usePreLoadedStyle<
     S extends Record<string, unknown> | React.CSSProperties,
-    A extends Record<string, unknown>,
+    V extends Record<string, unknown>,
     T extends WithCSSVar<Dict>
->(style: S | ((props?: A) => S), styleRefProp?: StyleRef, variables?: A): [string | undefined, (variables: A) => void] {
+>(styleRefProp: StyleRef<V, T>, style?: S | ((props?: V) => S), variables?: V): [string | undefined, (variables: V) => void] {
      const [state, setState] = useState(styleRefProp);
      const theme = useTheme();
      
@@ -60,15 +59,17 @@ export function usePreLoadedStyle<
             styleRefProp.ref.attach();
             return
         }
-        const loaded = loadStyle(theme, style, variables);
-        loaded.ref.attach();
-        setState(loaded);
+        if (style) {
+            const loaded = loadStyle(theme, style, variables);
+            loaded.ref.attach();
+            setState(loaded);
             return
+        }
     }, [state])
 
     useCustomCompareEffect(() => {
         if (state?.loadStyle) {
-            const nextRef = state?.loadStyle<A, T>(variables);
+            const nextRef = state?.loadStyle(variables);
             setState((prev) => {
                 if (prev) {
                     return {...prev, ref: nextRef}
@@ -78,9 +79,9 @@ export function usePreLoadedStyle<
         }
     }, [variables], (prev, current) => isEqual(prev, current))
 
-    const reloadStyles = React.useCallback((variables: A) => {
+    const reloadStyles = React.useCallback((variables: V) => {
         if (styleRefProp?.loadStyle) {
-            const nextRef = styleRefProp?.loadStyle<A, T>(variables);
+            const nextRef = styleRefProp?.loadStyle(variables);
             setState((prev) => {
                 if (prev) {
                     return {...prev, ref: nextRef}
