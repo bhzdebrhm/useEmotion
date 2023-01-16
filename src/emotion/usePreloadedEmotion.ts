@@ -77,7 +77,7 @@ export function usePreLoadedStyle<
                 return prev
             })
         }
-    }, [variables], (prev, current) => isEqual(prev, current))
+    }, [variables], (prev, current) => isEqual(prev?.[0], current?.[0]))
 
     const reloadStyles = React.useCallback((variables: V) => {
         if (styleRefProp?.loadStyle) {
